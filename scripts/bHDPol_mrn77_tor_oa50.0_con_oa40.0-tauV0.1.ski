@@ -1,0 +1,267 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<skirt-simulation-hierarchy type="MonteCarloSimulation" format="9" producer="Python toolkit for SKIRT (SkiFile class)" time="2024-07-02T15:07:19">
+  <MonteCarloSimulation userLevel="Expert" simulationMode="OligoExtinctionOnly" numPackets="1e8">
+    <random type="Random">
+      <Random seed="5548" />
+    </random>
+    <units type="Units">
+      <ExtragalacticUnits fluxOutputStyle="Wavelength" />
+    </units>
+    <cosmology type="Cosmology">
+      <LocalUniverseCosmology />
+    </cosmology>
+    <sourceSystem type="SourceSystem">
+      <SourceSystem minWavelength="0.001 micron" maxWavelength="1000 micron" wavelengths="0.120 micron, 0.135 micron, 0.150 micron, 0.165 micron, 0.180 micron, 0.195 micron, 0.210 micron, 0.225 micron, 0.240 micron, 0.255 micron, 0.270 micron, 0.361 micron, 0.555 micron" sourceBias="0.5">
+        <sources type="Source">
+          <PointSource positionX="0 pc" positionY="0 pc" positionZ="0 pc" velocityX="0 km/s" velocityY="0 km/s" velocityZ="0 km/s" sourceWeight="1" wavelengthBias="0.5">
+            <angularDistribution type="AngularDistribution">
+              <IsotropicAngularDistribution />
+            </angularDistribution>
+            <polarizationProfile type="PolarizationProfile">
+              <NoPolarizationProfile />
+            </polarizationProfile>
+            <sed type="SED">
+              <QuasarSED />
+            </sed>
+            <normalization type="LuminosityNormalization">
+              <IntegratedLuminosityNormalization wavelengthRange="Source" minWavelength="0.0001 micron" maxWavelength="1e6 micron" integratedLuminosity="1e12 Lsun" />
+            </normalization>
+            <wavelengthBiasDistribution type="WavelengthDistribution">
+              <LogWavelengthDistribution minWavelength="0.0001 micron" maxWavelength="1e6 micron" />
+            </wavelengthBiasDistribution>
+          </PointSource>
+        </sources>
+      </SourceSystem>
+    </sourceSystem>
+    <mediumSystem type="MediumSystem">
+      <MediumSystem>
+        <samplingOptions type="SamplingOptions">
+          <SamplingOptions numDensitySamples="300" />
+        </samplingOptions>
+        <radiationFieldOptions type="RadiationFieldOptions">
+          <RadiationFieldOptions storeRadiationField="false" />
+        </radiationFieldOptions>
+        <photonPacketOptions type="PhotonPacketOptions">
+          <PhotonPacketOptions minWeightReduction="1e4" minScattEvents="0" pathLengthBias="0.5" />
+        </photonPacketOptions>
+        <media type="Medium">
+<!-- disk -->
+          <GeometricMedium velocityMagnitude="0 km/s" magneticFieldStrength="0 uG">
+            <geometry type="Geometry">
+              <TorusGeometry exponent="0" index="0" openingAngle="40.0 deg" minRadius="0.1 pc" maxRadius="1 pc" reshapeInnerRadius="false" cutoffRadius="0 pc" />
+            </geometry>
+            <materialMix type="MaterialMix">
+              <ConfigurableDustMix scatteringType="SphericalPolarization">
+                <populations type="GrainPopulation">
+                  <GrainPopulation numSizes="5" normalizationType="FactorOnSizeDistribution" dustMassPerHydrogenAtom="0 Msun" dustMassPerHydrogenMass="0" factorOnSizeDistribution="7.413102413e-31">
+                    <composition type="GrainComposition">
+                      <PolarizedGraphiteGrainComposition />
+                    </composition>
+                    <sizeDistribution type="GrainSizeDistribution">
+                      <PowerLawGrainSizeDistribution minSize="0.005 micron" maxSize="0.25 micron" exponent="3.5" />
+                    </sizeDistribution>
+                  </GrainPopulation>
+                  <GrainPopulation numSizes="5" normalizationType="FactorOnSizeDistribution" dustMassPerHydrogenAtom="0 Msun" dustMassPerHydrogenMass="0" factorOnSizeDistribution="7.762471166e-31">
+                    <composition type="GrainComposition">
+                      <PolarizedSilicateGrainComposition />
+                    </composition>
+                    <sizeDistribution type="GrainSizeDistribution">
+                      <PowerLawGrainSizeDistribution minSize="0.005 micron" maxSize="0.25 micron" exponent="3.5" />
+                    </sizeDistribution>
+                  </GrainPopulation>
+                </populations>
+              </ConfigurableDustMix>
+            </materialMix>
+            <normalization type="MaterialNormalization">
+              <OpticalDepthMaterialNormalization axis="X" wavelength="9.7 micron" opticalDepth="10" />
+            </normalization>
+          </GeometricMedium>
+          <!-- hyperboloid shell -->
+          <GeometricMedium velocityMagnitude="0 km/s" magneticFieldStrength="0 uG">
+            <geometry type="Geometry">
+<!-- conical shell -->
+               <ConicalShellGeometry exponent="0.0" index="0" maxAngle="50.0 deg" maxRadius="50 pc" minAngle="40.0 deg" minRadius="0.1 pc" reshapeInnerRadius="false" cutoffRadius="0 pc" />
+            </geometry>
+            <materialMix type="MaterialMix">
+              <ConfigurableDustMix scatteringType="SphericalPolarization">
+                <populations type="GrainPopulation">
+                  <GrainPopulation numSizes="5" normalizationType="FactorOnSizeDistribution" dustMassPerHydrogenAtom="0 Msun" dustMassPerHydrogenMass="0" factorOnSizeDistribution="1">
+                    <composition type="GrainComposition">
+                      <PolarizedGraphiteGrainComposition />
+                    </composition>
+                    <sizeDistribution type="GrainSizeDistribution">
+                      <PowerLawGrainSizeDistribution minSize="0.005 micron" maxSize="0.25 micron" exponent="3.5" />
+                    </sizeDistribution>
+                  </GrainPopulation>
+                </populations>
+              </ConfigurableDustMix>
+            </materialMix>
+            <normalization type="MaterialNormalization">
+              <OpticalDepthMaterialNormalization axis="X" wavelength="0.55 micron" opticalDepth="0.2" />
+            </normalization>
+          </GeometricMedium>
+        </media>
+        <grid type="SpatialGrid">
+          <PolicyTreeSpatialGrid minX="-50 pc" maxX="50 pc" minY="-50 pc" maxY="50 pc" minZ="-50 pc" maxZ="50 pc" treeType="OctTree">
+            <policy type="TreePolicy">
+              <DensityTreePolicy minLevel="8" maxLevel="11" maxDustFraction="1e-6" maxDustOpticalDepth="5" wavelength="0.55 micron" maxDustDensityDispersion="0.99" maxElectronFraction="1e-6" maxGasFraction="0" />
+            </policy>
+          </PolicyTreeSpatialGrid>
+        </grid>
+      </MediumSystem>
+    </mediumSystem>
+    <instrumentSystem type="InstrumentSystem">
+      <InstrumentSystem>
+        <instruments type="Instrument">       
+          <FullInstrument instrumentName="i50.0" distance="10 Mpc" inclination="50.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i55.0" distance="10 Mpc" inclination="55.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i60.0" distance="10 Mpc" inclination="60.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i65.0" distance="10 Mpc" inclination="65.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i70.0" distance="10 Mpc" inclination="70.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i75.0" distance="10 Mpc" inclination="75.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i80.0" distance="10 Mpc" inclination="80.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i85.0" distance="10 Mpc" inclination="85.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i90.0" distance="10 Mpc" inclination="90.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i31.0" distance="10 Mpc" inclination="31.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i35.0" distance="10 Mpc" inclination="35.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i40.0" distance="10 Mpc" inclination="40.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i45.0" distance="10 Mpc" inclination="45.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i50.0" distance="10 Mpc" inclination="50.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i55.0" distance="10 Mpc" inclination="55.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i60.0" distance="10 Mpc" inclination="60.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i65.0" distance="10 Mpc" inclination="65.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i70.0" distance="10 Mpc" inclination="70.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i75.0" distance="10 Mpc" inclination="75.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i80.0" distance="10 Mpc" inclination="80.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i85.0" distance="10 Mpc" inclination="85.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i90.0" distance="10 Mpc" inclination="90.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i36.0" distance="10 Mpc" inclination="36.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i40.0" distance="10 Mpc" inclination="40.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i45.0" distance="10 Mpc" inclination="45.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i50.0" distance="10 Mpc" inclination="50.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i55.0" distance="10 Mpc" inclination="55.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i60.0" distance="10 Mpc" inclination="60.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i65.0" distance="10 Mpc" inclination="65.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i70.0" distance="10 Mpc" inclination="70.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i75.0" distance="10 Mpc" inclination="75.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i80.0" distance="10 Mpc" inclination="80.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i85.0" distance="10 Mpc" inclination="85.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i90.0" distance="10 Mpc" inclination="90.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i41.0" distance="10 Mpc" inclination="41.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i45.0" distance="10 Mpc" inclination="45.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i50.0" distance="10 Mpc" inclination="50.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i55.0" distance="10 Mpc" inclination="55.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i60.0" distance="10 Mpc" inclination="60.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i65.0" distance="10 Mpc" inclination="65.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i70.0" distance="10 Mpc" inclination="70.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i75.0" distance="10 Mpc" inclination="75.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i80.0" distance="10 Mpc" inclination="80.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i85.0" distance="10 Mpc" inclination="85.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i90.0" distance="10 Mpc" inclination="90.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i46.0" distance="10 Mpc" inclination="46.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i50.0" distance="10 Mpc" inclination="50.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i55.0" distance="10 Mpc" inclination="55.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i60.0" distance="10 Mpc" inclination="60.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i65.0" distance="10 Mpc" inclination="65.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i70.0" distance="10 Mpc" inclination="70.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i75.0" distance="10 Mpc" inclination="75.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i80.0" distance="10 Mpc" inclination="80.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i85.0" distance="10 Mpc" inclination="85.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i90.0" distance="10 Mpc" inclination="90.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i51.0" distance="10 Mpc" inclination="51.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i55.0" distance="10 Mpc" inclination="55.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i60.0" distance="10 Mpc" inclination="60.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i65.0" distance="10 Mpc" inclination="65.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i70.0" distance="10 Mpc" inclination="70.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i75.0" distance="10 Mpc" inclination="75.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i80.0" distance="10 Mpc" inclination="80.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i85.0" distance="10 Mpc" inclination="85.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        <FullInstrument instrumentName="i90.0" distance="10 Mpc" inclination="90.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>
+        </instruments>
+      </InstrumentSystem>
+    </instrumentSystem>
+    <probeSystem type="ProbeSystem">
+      <ProbeSystem>
+        <probes type="Probe">
+          <LuminosityProbe probeName="lumPro">
+            <wavelengthGrid type="WavelengthGrid">
+              <FileWavelengthGrid filename="blueHotDogs_wlen.dat" relativeHalfWidth="0" />
+            </wavelengthGrid>
+          </LuminosityProbe>        
+          <ConvergenceInfoProbe probeName="cnvInf" wavelength="0.55 micron" />
+          <ConvergenceCutsProbe probeName="cnvCut" />
+          <DensityProbe probeName="den" />          
+          <DensityProbe probeName="CustomCut" aggregation="Type" probeAfter="Setup">
+                <form type="Form">
+                    <PlanarCutsForm minX="-1 pc" maxX="1 pc" minY="-1 pc" maxY="1 pc" minZ="-1 pc" maxZ="1 pc" positionX="0 pc" positionY="0 pc" positionZ="0 pc" numPixelsX="1024" numPixelsY="1024" numPixelsZ="1024" />
+                </form>
+          </DensityProbe>
+        </probes>
+      </ProbeSystem>
+    </probeSystem>
+  </MonteCarloSimulation>
+</skirt-simulation-hierarchy>

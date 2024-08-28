@@ -28,6 +28,10 @@ class SkiGen(object):
         self.tor, self.cone = self.root.findall("./MonteCarloSimulation/mediumSystem/MediumSystem/media/GeometricMedium")
         self.incs = self.root.findall("./MonteCarloSimulation/instrumentSystem/InstrumentSystem/instruments")[0]
 
+        #Set the template to use for an inclination angle and remove it from the root. 
+        self.eta_temp = self.incs.find("FullInstrument")
+        self.incs.remove(self.eta_temp)
+
         #Set the cone dust properties.
         self.cone_dust = self.cone.find("./materialMix/ConfigurableDustMix/populations/GrainPopulation/sizeDistribution/PowerLawGrainSizeDistribution")
 
@@ -70,15 +74,17 @@ class SkiGen(object):
             #Set the torus opening angle. 
             self.tor.find("./geometry/TorusGeometry").set("openingAngle", "{} deg".format(90-tor_oa))
 
+            #Remove all in the inclination blocks. These are left over from previous iterations. 
+            for inc in self.incs.findall("FullInstrument"):
+                self.incs.remove(inc)
+
             #Set the inclinations. 
             eta_max = 90
             eta_min = tor_oa
             etas = np.arange(eta_min, eta_max+0.1*delta_eta, delta_eta)
             etas[0]+=0.2*delta_eta
-            eta_temp = self.incs.find("FullInstrument")
-            self.incs.remove(eta_temp)
             for eta in etas:
-                eta_temp_use = copy.deepcopy(eta_temp)
+                eta_temp_use = copy.deepcopy(self.eta_temp)
                 eta_temp_use.set("instrumentName","i{}".format(eta))
                 eta_temp_use.set("inclination", "{} deg".format(eta))
                 self.incs.append(eta_temp_use)

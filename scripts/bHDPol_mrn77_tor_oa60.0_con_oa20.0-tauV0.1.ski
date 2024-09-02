@@ -113,20 +113,17 @@
     <instrumentSystem type="InstrumentSystem">
       <InstrumentSystem>
         <instruments type="Instrument">       
-          <FullInstrument instrumentName="i61.0" distance="10 Mpc" inclination="61.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
-          </FullInstrument>
-        <FullInstrument instrumentName="i65.0" distance="10 Mpc" inclination="65.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
-          </FullInstrument>
-        <FullInstrument instrumentName="i70.0" distance="10 Mpc" inclination="70.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
-          </FullInstrument>
-        <FullInstrument instrumentName="i75.0" distance="10 Mpc" inclination="75.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
-          </FullInstrument>
-        <FullInstrument instrumentName="i80.0" distance="10 Mpc" inclination="80.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
-          </FullInstrument>
-        <FullInstrument instrumentName="i85.0" distance="10 Mpc" inclination="85.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
-          </FullInstrument>
-        <FullInstrument instrumentName="i90.0" distance="10 Mpc" inclination="90.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
-          </FullInstrument>
+          <SEDInstrument instrumentName="i60.0" distance="10 Mpc" inclination="60.0 deg" azimuth="0 deg" roll="0 deg" radius="0 pc" recordComponents="true" numScatteringLevels="5" recordPolarization="true" recordStatistics="false" />          
+        <SEDInstrument instrumentName="i61.0" distance="10 Mpc" inclination="61.0 deg" azimuth="0 deg" roll="0 deg" radius="0 pc" recordComponents="true" numScatteringLevels="5" recordPolarization="true" recordStatistics="false" />          
+        <SEDInstrument instrumentName="i62.0" distance="10 Mpc" inclination="62.0 deg" azimuth="0 deg" roll="0 deg" radius="0 pc" recordComponents="true" numScatteringLevels="5" recordPolarization="true" recordStatistics="false" />          
+        <SEDInstrument instrumentName="i63.0" distance="10 Mpc" inclination="63.0 deg" azimuth="0 deg" roll="0 deg" radius="0 pc" recordComponents="true" numScatteringLevels="5" recordPolarization="true" recordStatistics="false" />          
+        <SEDInstrument instrumentName="i64.0" distance="10 Mpc" inclination="64.0 deg" azimuth="0 deg" roll="0 deg" radius="0 pc" recordComponents="true" numScatteringLevels="5" recordPolarization="true" recordStatistics="false" />          
+        <SEDInstrument instrumentName="i65.0" distance="10 Mpc" inclination="65.0 deg" azimuth="0 deg" roll="0 deg" radius="0 pc" recordComponents="true" numScatteringLevels="5" recordPolarization="true" recordStatistics="false" />          
+        <SEDInstrument instrumentName="i70.0" distance="10 Mpc" inclination="70.0 deg" azimuth="0 deg" roll="0 deg" radius="0 pc" recordComponents="true" numScatteringLevels="5" recordPolarization="true" recordStatistics="false" />          
+        <SEDInstrument instrumentName="i75.0" distance="10 Mpc" inclination="75.0 deg" azimuth="0 deg" roll="0 deg" radius="0 pc" recordComponents="true" numScatteringLevels="5" recordPolarization="true" recordStatistics="false" />          
+        <SEDInstrument instrumentName="i80.0" distance="10 Mpc" inclination="80.0 deg" azimuth="0 deg" roll="0 deg" radius="0 pc" recordComponents="true" numScatteringLevels="5" recordPolarization="true" recordStatistics="false" />          
+        <SEDInstrument instrumentName="i85.0" distance="10 Mpc" inclination="85.0 deg" azimuth="0 deg" roll="0 deg" radius="0 pc" recordComponents="true" numScatteringLevels="5" recordPolarization="true" recordStatistics="false" />          
+        <SEDInstrument instrumentName="i90.0" distance="10 Mpc" inclination="90.0 deg" azimuth="0 deg" roll="0 deg" radius="0 pc" recordComponents="true" numScatteringLevels="5" recordPolarization="true" recordStatistics="false" />          
         </instruments>
       </InstrumentSystem>
     </instrumentSystem>
@@ -135,7 +132,7 @@
         <probes type="Probe">
           <LuminosityProbe probeName="lumPro">
             <wavelengthGrid type="WavelengthGrid">
-              <FileWavelengthGrid filename="blueHotDogs_wlen.dat" relativeHalfWidth="0" />
+              <ListWavelengthGrid wavelengths="0.120 micron, 0.135 micron, 0.150 micron, 0.165 micron, 0.180 micron, 0.195 micron, 0.210 micron, 0.225 micron, 0.240 micron, 0.255 micron, 0.270 micron, 0.361 micron, 0.555 micron" relativeHalfWidth="0" log="false" />
             </wavelengthGrid>
           </LuminosityProbe>        
           <ConvergenceInfoProbe probeName="cnvInf" wavelength="0.55 micron" />

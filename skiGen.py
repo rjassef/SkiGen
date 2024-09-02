@@ -6,7 +6,7 @@ import os
 
 class SkiGen(object):
 
-    def __init__(self, cone_tau, cone_width=10, cone_dust_type='mrn77', cone_dust_minsize=None, cone_dust_maxsize=None, cone_dust_exponent=None):
+    def __init__(self, cone_tau, cone_width=10, cone_dust_type='mrn77', cone_dust_minsize=None, cone_dust_maxsize=None, cone_dust_exponent=None, SED_only=False):
 
         #Save the input parameters. 
         self.cone_tau = cone_tau
@@ -15,21 +15,30 @@ class SkiGen(object):
         self.cone_dust_minsize=cone_dust_minsize
         self.cone_dust_maxsize=cone_dust_maxsize
         self.cone_dust_exponent=cone_dust_exponent
+        self.SED_only = SED_only
 
         #The directory where this script lives. 
         skg_folder = os.path.dirname(os.path.realpath(__file__))
 
+        #Set template and output instrument depending on whether we want SEDs only or the images as well. 
+        if self.SED_only:
+            self.output_instrument = "SEDInstrument"
+            self.template   = "template_SEDInst.ski"
+        else:
+            self.output_instrument = "FullInstrument"
+            self.template   = "template_FullInst.ski"
+
         #Start by reading the template.
         parser = ET.XMLParser(target=ET.TreeBuilder(insert_comments=True))
-        self.tree = ET.parse(skg_folder+"/template.ski", parser)
+        self.tree = ET.parse(skg_folder+"/"+self.template, parser)
         self.root = self.tree.getroot()
 
         #Separate the main components. 
         self.tor, self.cone = self.root.findall("./MonteCarloSimulation/mediumSystem/MediumSystem/media/GeometricMedium")
         self.incs = self.root.findall("./MonteCarloSimulation/instrumentSystem/InstrumentSystem/instruments")[0]
 
-        #Set the template to use for an inclination angle and remove it from the root. 
-        self.eta_temp = self.incs.find("FullInstrument")
+        #Set the template to use for an inclination angle and remove it from the root.
+        self.eta_temp = self.incs.find(self.output_instrument)
         self.incs.remove(self.eta_temp)
 
         #Set the cone dust properties.
@@ -63,7 +72,7 @@ class SkiGen(object):
 
         return
     
-    def write_files_parameter_grid(self, tor_oa_min, tor_oa_max, tor_doa, cone_oa_min, cone_oa_max, cone_doa, delta_eta=5, folder="scripts"):
+    def write_files_parameter_grid(self, tor_oa_min, tor_oa_max, tor_doa, cone_oa_min, cone_oa_max, cone_doa, delta_eta=5, delta_eta_grazing=1, folder="scripts"):
 
         subprocess.call("mkdir {}".format(folder), shell=True)
 
@@ -75,14 +84,16 @@ class SkiGen(object):
             self.tor.find("./geometry/TorusGeometry").set("openingAngle", "{} deg".format(90-tor_oa))
 
             #Remove all in the inclination blocks. These are left over from previous iterations. 
-            for inc in self.incs.findall("FullInstrument"):
+            for inc in self.incs.findall(self.output_instrument):
                 self.incs.remove(inc)
 
             #Set the inclinations. 
             eta_max = 90
             eta_min = tor_oa
             etas = np.arange(eta_min, eta_max+0.1*delta_eta, delta_eta)
-            etas[0]+=0.2*delta_eta
+            #etas[0]+=0.2*delta_eta
+            etas_grazing = np.arange(etas[0], etas[1]-0.1*delta_eta_grazing, delta_eta_grazing)
+            etas = np.concatenate([etas_grazing, etas[1:]])
             for eta in etas:
                 eta_temp_use = copy.deepcopy(self.eta_temp)
                 eta_temp_use.set("instrumentName","i{}".format(eta))

@@ -72,7 +72,7 @@ class SkiGen(object):
 
         return
     
-    def write_files_parameter_grid(self, tor_oa_min, tor_oa_max, tor_doa, cone_oa_min, cone_oa_max, cone_doa, delta_eta=5, delta_eta_grazing=1, folder="scripts"):
+    def write_files_parameter_grid(self, tor_oa_min, tor_oa_max, tor_doa, cone_oa_min, cone_oa_max, cone_doa, etas = None, eta_max=90, eta_min=None, delta_eta=5, delta_eta_grazing=1, folder="scripts"):
 
         subprocess.call("mkdir {}".format(folder), shell=True)
 
@@ -87,13 +87,16 @@ class SkiGen(object):
             for inc in self.incs.findall(self.output_instrument):
                 self.incs.remove(inc)
 
-            #Set the inclinations. 
-            eta_max = 90
-            eta_min = tor_oa
-            etas = np.arange(eta_min, eta_max+0.1*delta_eta, delta_eta)
-            #etas[0]+=0.2*delta_eta
-            etas_grazing = np.arange(etas[0], etas[1]-0.1*delta_eta_grazing, delta_eta_grazing)
-            etas = np.concatenate([etas_grazing, etas[1:]])
+            #Set the inclinations.
+            if etas is None: 
+                #eta_max = 90
+                if eta_min is None or eta_min<tor_oa:
+                    eta_min = tor_oa
+                etas = np.arange(eta_min, eta_max+0.1*delta_eta, delta_eta)
+                #etas[0]+=0.2*delta_eta
+                if len(etas)>1:
+                    etas_grazing = np.arange(etas[0], etas[1]-0.1*delta_eta_grazing, delta_eta_grazing)
+                    etas = np.concatenate([etas_grazing, etas[1:]])
             for eta in etas:
                 eta_temp_use = copy.deepcopy(self.eta_temp)
                 eta_temp_use.set("instrumentName","i{}".format(eta))

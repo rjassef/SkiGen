@@ -6,7 +6,7 @@ import os
 
 class SkiGen(object):
 
-    def __init__(self, cone_tau, cone_width=10, cone_dust_type='mrn77', cone_dust_minsize=None, cone_dust_maxsize=None, cone_dust_exponent=None, SED_only=False):
+    def __init__(self, cone_tau, cone_width=10, cone_dust_type='mrn77', cone_dust_minsize=None, cone_dust_maxsize=None, cone_dust_exponent=None, cone_type="Full", SED_only=False):
 
         #Save the input parameters. 
         self.cone_tau = cone_tau
@@ -16,6 +16,7 @@ class SkiGen(object):
         self.cone_dust_maxsize=cone_dust_maxsize
         self.cone_dust_exponent=cone_dust_exponent
         self.SED_only = SED_only
+        self.cone_type = cone_type
 
         #The directory where this script lives. 
         skg_folder = os.path.dirname(os.path.realpath(__file__))
@@ -23,10 +24,22 @@ class SkiGen(object):
         #Set template and output instrument depending on whether we want SEDs only or the images as well. 
         if self.SED_only:
             self.output_instrument = "SEDInstrument"
-            self.template   = "template_SEDInst.ski"
+            if cone_type=='Full':
+                self.template   = "template_SEDInst.ski"
+            elif cone_type=="Bottom":
+                self.template   = "template_SEDInst_botCon.ski"
+            elif cone_type=="Top":
+                self.template   = "template_SEDInst_topCon.ski"
+            else:
+                print("Unrecognized cone type: ", cone_type)
+                return
         else:
             self.output_instrument = "FullInstrument"
-            self.template   = "template_FullInst.ski"
+            if cone_type=='Full':
+                self.template   = "template_FullInst.ski"
+            else:
+                print("For FullInstrument mode only a full cone_type can be used.")
+                return
 
         #Start by reading the template.
         parser = ET.XMLParser(target=ET.TreeBuilder(insert_comments=True))
@@ -69,7 +82,8 @@ class SkiGen(object):
             self.base_fname += "_gs{}-{}_a{}".format(self.cone_dust_minsize, self.cone_dust_maxsize, self.cone_dust_exponent)
         else:
             self.base_fname += "_{}".format(self.cone_dust_type)
-
+        if cone_type!="Full":
+            self.base_fname += "_{}ConeOnly".format(cone_type)
         return
     
     def write_files_parameter_grid(self, tor_oa_min, tor_oa_max, tor_doa, cone_oa_min, cone_oa_max, cone_doa, etas = None, eta_max=90, eta_min=None, delta_eta=5, delta_eta_grazing=1, folder="scripts"):
@@ -77,7 +91,6 @@ class SkiGen(object):
         subprocess.call("mkdir {}".format(folder), shell=True)
 
         tor_oas  = np.arange(tor_oa_min , tor_oa_max +0.1*tor_doa , tor_doa )
-
         for tor_oa in tor_oas:
 
             #Set the torus opening angle. 
@@ -91,13 +104,15 @@ class SkiGen(object):
             if etas is None: 
                 #eta_max = 90
                 if eta_min is None or eta_min<tor_oa:
-                    eta_min = tor_oa
-                etas = np.arange(eta_min, eta_max+0.1*delta_eta, delta_eta)
+                    eta_min_use = tor_oa
+                etas_use = np.arange(eta_min_use, eta_max+0.1*delta_eta, delta_eta)
                 #etas[0]+=0.2*delta_eta
-                if len(etas)>1:
-                    etas_grazing = np.arange(etas[0], etas[1]-0.1*delta_eta_grazing, delta_eta_grazing)
-                    etas = np.concatenate([etas_grazing, etas[1:]])
-            for eta in etas:
+                if len(etas_use)>1:
+                    etas_grazing = np.arange(etas_use[0], etas_use[1]-0.1*delta_eta_grazing, delta_eta_grazing)
+                    etas_use = np.concatenate([etas_grazing, etas_use[1:]])
+            else:
+                etas_use = etas
+            for eta in etas_use:
                 eta_temp_use = copy.deepcopy(self.eta_temp)
                 eta_temp_use.set("instrumentName","i{}".format(eta))
                 eta_temp_use.set("inclination", "{} deg".format(eta))
@@ -108,9 +123,13 @@ class SkiGen(object):
 
             for cone_oa in cone_oas:
 
-                #Set the cone geometry. 
-                self.cone.find("./geometry/ConicalShellGeometry").set("maxAngle", "{} deg".format(90-cone_oa))
-                self.cone.find("./geometry/ConicalShellGeometry").set("minAngle", "{} deg".format(90-cone_oa - self.cone_width))
+                #Set the cone geometry.
+                if self.cone_type=="Full":
+                    cone_prop_xml = "./geometry/ConicalShellGeometry"
+                else:
+                    cone_prop_xml = "./geometry/BoxClipGeometryDecorator/geometry/ConicalShellGeometry"
+                self.cone.find(cone_prop_xml).set("maxAngle", "{} deg".format(90-cone_oa))
+                self.cone.find(cone_prop_xml).set("minAngle", "{} deg".format(90-cone_oa - self.cone_width))
 
                 fname = folder+"/"+self.base_fname + "_tor_oa{}_con_oa{}-tauV{}.ski".format(tor_oa, cone_oa, self.cone_tau)
 

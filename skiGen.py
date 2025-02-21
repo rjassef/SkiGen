@@ -109,7 +109,7 @@ class SkiGen(object):
                 #etas[0]+=0.2*delta_eta
                 if len(etas_use)>1:
                     etas_grazing = np.arange(etas_use[0], etas_use[1]-0.1*delta_eta_grazing, delta_eta_grazing)
-                    etas_use = np.concatenate([etas_grazing, etas_use[1:]])
+                    etas_use = np.concatenate([etas_grazing[1:], etas_use[1:]])
             else:
                 etas_use = etas
             for eta in etas_use:

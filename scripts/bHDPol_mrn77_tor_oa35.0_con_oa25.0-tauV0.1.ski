@@ -11,7 +11,7 @@
       <LocalUniverseCosmology />
     </cosmology>
     <sourceSystem type="SourceSystem">
-      <SourceSystem minWavelength="0.001 micron" maxWavelength="1000 micron" wavelengths="0.120 micron, 0.135 micron, 0.150 micron, 0.165 micron, 0.180 micron, 0.195 micron, 0.210 micron, 0.225 micron, 0.240 micron, 0.255 micron, 0.270 micron, 0.361 micron, 0.555 micron" sourceBias="0.5">
+      <SourceSystem minWavelength="0.001 micron" maxWavelength="1000 micron" wavelengths="0.120 micron, 0.135 micron, 0.150 micron, 0.165 micron, 0.180 micron, 0.195 micron, 0.210 micron, 0.225 micron, 0.240 micron, 0.255 micron, 0.270 micron, 0.285 micron, 0.300 micron, 0.355 micron, 0.455 micron, 0.555 micron, 0.655 micron, 0.755 micron" sourceBias="0.5">
         <sources type="Source">
           <PointSource positionX="0 pc" positionY="0 pc" positionZ="0 pc" velocityX="0 km/s" velocityY="0 km/s" velocityZ="0 km/s" sourceWeight="1" wavelengthBias="0.5">
             <angularDistribution type="AngularDistribution">
@@ -36,7 +36,7 @@
     <mediumSystem type="MediumSystem">
       <MediumSystem>
         <samplingOptions type="SamplingOptions">
-          <SamplingOptions numDensitySamples="300" />
+          <SamplingOptions numDensitySamples="600" />
         </samplingOptions>
         <radiationFieldOptions type="RadiationFieldOptions">
           <RadiationFieldOptions storeRadiationField="false" />
@@ -76,10 +76,9 @@
               <OpticalDepthMaterialNormalization axis="X" wavelength="9.7 micron" opticalDepth="10" />
             </normalization>
           </GeometricMedium>
-          <!-- hyperboloid shell -->
+<!-- conical shell -->
           <GeometricMedium velocityMagnitude="0 km/s" magneticFieldStrength="0 uG">
             <geometry type="Geometry">
-<!-- conical shell -->
                <ConicalShellGeometry exponent="0.0" index="0" maxAngle="65.0 deg" maxRadius="50 pc" minAngle="55.0 deg" minRadius="0.1 pc" reshapeInnerRadius="false" cutoffRadius="0 pc" />
             </geometry>
             <materialMix type="MaterialMix">
@@ -101,20 +100,25 @@
             </normalization>
           </GeometricMedium>
         </media>
-        <grid type="SpatialGrid">
-          <PolicyTreeSpatialGrid minX="-50 pc" maxX="50 pc" minY="-50 pc" maxY="50 pc" minZ="-50 pc" maxZ="50 pc" treeType="OctTree">
-            <policy type="TreePolicy">
-              <DensityTreePolicy minLevel="8" maxLevel="11" maxDustFraction="1e-6" maxDustOpticalDepth="5" wavelength="0.55 micron" maxDustDensityDispersion="0.99" maxElectronFraction="1e-6" maxGasFraction="0" />
-            </policy>
-          </PolicyTreeSpatialGrid>
-        </grid>
+                <grid type="SpatialGrid">
+                    <Sphere3DSpatialGrid maxRadius="50 pc">
+                        <meshRadial type="Mesh">
+                            <LinMesh numBins="500" />
+                        </meshRadial>
+                        <meshPolar type="Mesh">
+                            <LinMesh numBins="180" />
+                        </meshPolar>
+                        <meshAzimuthal type="Mesh">
+                            <LinMesh numBins="180" />
+                        </meshAzimuthal>
+                    </Sphere3DSpatialGrid>
+                </grid>
       </MediumSystem>
     </mediumSystem>
     <instrumentSystem type="InstrumentSystem">
       <InstrumentSystem>
         <instruments type="Instrument">       
-          <SEDInstrument instrumentName="i35.0" distance="10 Mpc" inclination="35.0 deg" azimuth="0 deg" roll="0 deg" radius="0 pc" recordComponents="true" numScatteringLevels="5" recordPolarization="true" recordStatistics="false" />          
-        <SEDInstrument instrumentName="i36.0" distance="10 Mpc" inclination="36.0 deg" azimuth="0 deg" roll="0 deg" radius="0 pc" recordComponents="true" numScatteringLevels="5" recordPolarization="true" recordStatistics="false" />          
+          <SEDInstrument instrumentName="i36.0" distance="10 Mpc" inclination="36.0 deg" azimuth="0 deg" roll="0 deg" radius="0 pc" recordComponents="true" numScatteringLevels="5" recordPolarization="true" recordStatistics="false" />          
         <SEDInstrument instrumentName="i37.0" distance="10 Mpc" inclination="37.0 deg" azimuth="0 deg" roll="0 deg" radius="0 pc" recordComponents="true" numScatteringLevels="5" recordPolarization="true" recordStatistics="false" />          
         <SEDInstrument instrumentName="i38.0" distance="10 Mpc" inclination="38.0 deg" azimuth="0 deg" roll="0 deg" radius="0 pc" recordComponents="true" numScatteringLevels="5" recordPolarization="true" recordStatistics="false" />          
         <SEDInstrument instrumentName="i39.0" distance="10 Mpc" inclination="39.0 deg" azimuth="0 deg" roll="0 deg" radius="0 pc" recordComponents="true" numScatteringLevels="5" recordPolarization="true" recordStatistics="false" />          
@@ -137,17 +141,27 @@
         <probes type="Probe">
           <LuminosityProbe probeName="lumPro">
             <wavelengthGrid type="WavelengthGrid">
-              <ListWavelengthGrid wavelengths="0.120 micron, 0.135 micron, 0.150 micron, 0.165 micron, 0.180 micron, 0.195 micron, 0.210 micron, 0.225 micron, 0.240 micron, 0.255 micron, 0.270 micron, 0.361 micron, 0.555 micron" relativeHalfWidth="0" log="false" />
+              <ListWavelengthGrid wavelengths="0.120 micron, 0.135 micron, 0.150 micron, 0.165 micron, 0.180 micron, 0.195 micron, 0.210 micron, 0.225 micron, 0.240 micron, 0.255 micron, 0.270 micron, 0.285 micron, 0.300 micron, 0.355 micron, 0.455 micron, 0.555 micron, 0.655 micron, 0.755 micron" relativeHalfWidth="0" log="false" />
             </wavelengthGrid>
           </LuminosityProbe>        
+          <OpticalMaterialPropertiesProbe probeName="opt" />                  
+          <DustGrainSizeDistributionProbe probeName="grSiz" numSamples="100" />
           <ConvergenceInfoProbe probeName="cnvInf" wavelength="0.55 micron" />
           <ConvergenceCutsProbe probeName="cnvCut" />
-          <DensityProbe probeName="den" />          
-          <DensityProbe probeName="CustomCut" aggregation="Type" probeAfter="Setup">
+          <DensityProbe probeName="CustomCut" aggregation="Component" probeAfter="Setup">
                 <form type="Form">
                     <PlanarCutsForm minX="-1 pc" maxX="1 pc" minY="-1 pc" maxY="1 pc" minZ="-1 pc" maxZ="1 pc" positionX="0 pc" positionY="0 pc" positionZ="0 pc" numPixelsX="1024" numPixelsY="1024" numPixelsZ="1024" />
                 </form>
           </DensityProbe>
+          <OpacityProbe probeName="tau0.21um" wavelength="0.21 micron" aggregation="Type" probeAfter="Setup">
+              <form type="Form">
+                  <AllSkyProjectionForm numPixelsY="300" observerX="0 pc" observerY="0 pc" observerZ="0 pc" crossX="1 pc" crossY="0 pc" crossZ="0 pc" upX="0 pc" upY="0 pc" upZ="1 pc">
+                      <projection type="AllSkyProjection">
+                          <HammerAitoffProjection />
+                      </projection>
+                  </AllSkyProjectionForm>
+              </form>
+          </OpacityProbe>
         </probes>
       </ProbeSystem>
     </probeSystem>

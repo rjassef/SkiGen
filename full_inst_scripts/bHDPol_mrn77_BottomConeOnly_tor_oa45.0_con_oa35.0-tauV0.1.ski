@@ -121,8 +121,9 @@
     </mediumSystem>
     <instrumentSystem type="InstrumentSystem">
       <InstrumentSystem>
-        <instruments type="Instrument">       
-          <SEDInstrument instrumentName="i80.0" distance="10 Mpc" inclination="80.0 deg" azimuth="0 deg" roll="0 deg" radius="0 pc" recordComponents="true" numScatteringLevels="5" recordPolarization="true" recordStatistics="false" />          
+        <instruments type="Instrument">           
+          <FullInstrument instrumentName="i80.0" distance="10 Mpc" inclination="80.0 deg" azimuth="0 deg" roll="0 deg" fieldOfViewX="120 pc" numPixelsX="601" centerX="0 pc" fieldOfViewY="120 pc" numPixelsY="601" centerY="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="true" recordStatistics="false">
+          </FullInstrument>       
         </instruments>
       </InstrumentSystem>
     </instrumentSystem>

@@ -23,23 +23,17 @@ class SkiGen(object):
 
         #Set template and output instrument depending on whether we want SEDs only or the images as well. 
         if self.SED_only:
-            self.output_instrument = "SEDInstrument"
-            if cone_type=='Full':
-                self.template   = "template_SEDInst.ski"
-            elif cone_type=="Bottom":
-                self.template   = "template_SEDInst_botCon.ski"
-            elif cone_type=="Top":
-                self.template   = "template_SEDInst_topCon.ski"
-            else:
-                print("Unrecognized cone type: ", cone_type)
-                return
+            self.inst_type = 'SED'
         else:
-            self.output_instrument = "FullInstrument"
-            if cone_type=='Full':
-                self.template   = "template_FullInst.ski"
-            else:
-                print("For FullInstrument mode only a full cone_type can be used.")
-                return
+            self.inst_type = 'Full'
+        
+        self.output_instrument = "{}Instrument".format(self.inst_type)
+        cone_template_name = {
+            "Full": "",
+            "Bottom": "_botCon",
+            "Top": "_topCon",
+        }
+        self.template   = "template_{}Inst{}.ski".format(self.inst_type, cone_template_name[cone_type])
 
         #Start by reading the template.
         parser = ET.XMLParser(target=ET.TreeBuilder(insert_comments=True))
